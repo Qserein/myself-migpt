@@ -1,0 +1,65 @@
+{
+  "name": "mi-gpt",
+  "version": "4.1.0",
+  "type": "module",
+  "description": "将小爱音箱接入 ChatGPT 和豆包，改造成你的专属语音助手。",
+  "homepage": "https://github.com/idootop/mi-gpt",
+  "bugs": "https://github.com/idootop/mi-gpt/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idootop/mi-gpt.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Del Wang",
+    "email": "hello@xbox.work",
+    "url": "https://github.com/idootop"
+  },
+  "keywords": [
+    "mi",
+    "xiaomi",
+    "mi-home",
+    "ChatGPT",
+    "home-assistant"
+  ],
+  "scripts": {
+    "start": "node ./app.js",
+    "dev": "node --env-file=.env ./app.js",
+    "build": "npx -y prisma generate && tsup",
+    "db:gen": "npx -y prisma migrate dev --name init",
+    "db:reset": "rm -f .mi.json .bot.json prisma/app.db prisma/app.db-journal",
+    "postinstall": "npx -y prisma migrate dev --name hello"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "fs-extra": "^11.2.0",
+    "mi-service-lite": "^3.0.0",
+    "openai": "^4.52.2",
+    "prisma": "^5.14.0",
+    "proxy-agent": "^6.4.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.4.9",
+    "tsup": "^8.0.1",
+    "tsx": "^4.11.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "prisma/migrations",
+    "prisma/schema.prisma"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.js"
+  }
+}
